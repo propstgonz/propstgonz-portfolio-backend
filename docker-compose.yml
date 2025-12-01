@@ -19,7 +19,7 @@ services:
     container_name: propstgonz-blogposts-bucket
     restart: unless-stopped
     volumes:
-      - ~/blog:/usr/share/nginx/html:ro
+      - /home/jenkins/blog:/usr/share/nginx/html:ro
     networks:
       - traefik-net
     labels:
@@ -32,3 +32,4 @@ services:
 networks:
   traefik-net:
     external: true
+
