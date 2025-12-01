@@ -13,6 +13,22 @@ services:
       - traefik-net
     labels:
       - "traefik.enable=false"
+
+  bucket:
+    image: nginx:alpine
+    container_name: propstgonz-blogposts-bucket
+    restart: unless-stopped
+    volumes:
+      - ~/blog:/usr/share/nginx/html:ro
+    networks:
+      - traefik-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bucket.rule=Host(`bucket.baronette.es`)"
+      - "traefik.http.routers.bucket.entrypoints=websecure"
+      - "traefik.http.routers.bucket.tls=true"
+      - "traefik.http.services.bucket.loadbalancer.server.port=80"
+
 networks:
   traefik-net:
     external: true
